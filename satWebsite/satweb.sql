@@ -12,6 +12,9 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+CREATE DATABASE IF NOT EXISTS satweb;
+
+USE satweb;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -28,7 +31,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `question`
 --
 
-CREATE TABLE `question` (
+CREATE TABLE IF NOT EXISTS `question` (
   `id` int(11) NOT NULL,
   `question` varchar(10000) DEFAULT NULL,
   `answer` varchar(255) DEFAULT NULL,
