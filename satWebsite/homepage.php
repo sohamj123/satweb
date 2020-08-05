@@ -12,8 +12,9 @@
     <script type="text/javascript"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
+    <script src="https://tikzjax.com/v1/tikzjax.js"></script>
 </head>
 
 <?php
@@ -46,6 +47,7 @@ $result = $conn->query($sql);
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="homepage.php">questions</a>
             <a class="navbar-brand" href="answers.php">answers</a>
+            <a class="navbar-brand" href="question.html">practice</a>
         </nav>
         <div class="container">
             <?php

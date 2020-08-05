@@ -12,8 +12,8 @@
     <script type="text/javascript"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
 </head>
 
 <?php
@@ -40,7 +40,11 @@ $result = $conn->query($sql);
 #echo $result->num_rows;
 ?>
 
+
 <body>
+
+
+
 
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -79,5 +83,7 @@ $result = $conn->query($sql);
     });
     var count = 1;
 </Script>
+
+
 
 </html>
