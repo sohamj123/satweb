@@ -50,6 +50,7 @@ $result = $conn->query($sql);
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="homepage.php">questions</a>
             <a class="navbar-brand" href="answers.php">answers</a>
+            <a class="navbar-brand" href="question.html">practice</a>
         </nav>
         <div class="container">
             <?php

@@ -24,8 +24,15 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="homepage.php">questions</a>
             <a class="navbar-brand" href="answers.php">answers</a>
+            <a class="navbar-brand" href="question.html">practice</a>
         </nav>
         <div class="container">
+            <div class="alert alert-success" role="alert" id="displayCorrect">
+                correct!!!!!!!!!!!!!!!!!!!!!!!
+            </div>
+            <div class="alert alert-danger" role="alert" id="displayIncorrect">
+                incorrect sadly (insert sad face emoji here)
+            </div>
             <div class="card">
                 <div class="card-body">
                     <div class="card-text" id="catagory">
@@ -35,27 +42,60 @@
                             <option value="quadratics">quadratics</option>
                             <option value="percent1">percent1</option>
                             <option value="percent2">percent2</option>
+                            <option value="percent3">percent3</option>
+                            <option value="percentBasic">percent basics</option>
                         </select>
 
                     </div>
                     <p class="card-text" id="question"></p>
-                    <p class="card-text" id="answer"></p>
+                    <div class="input-group" id="replyText">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-anchor"></i></span>
+                        </div>
+                        <input type="text" id="reply" class="form-control pull-right reply" placeholder="Your Answer" />
+                    </div>
+
+                    <p class="card-text" id="answer" style="display: none;"></p>         
                 </div>
             </div>
-            <button type="button" class="btn btn-success" id="generate">New Question</button>
+            <button type="button" class="btn btn-success" id = "nextQuestion" style="display: none;" >Next Question</button>
         </div>
 </body>
 
 <script>
-    $("#generate").click(function () {
+    $('#reply').keypress(function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13' && $('#reply').val() > '') {
+            if ($('#reply').val() == $('#answer').text()) {
+                $('#reply').val('');
+                $("#displayCorrect").show();
+                $("#displayIncorrect").hide();
+                $("#nextQuestion").show();
+                setTimeout(
+                    function () {
+                        makeQuestion();
+                    }, 3000);
+                   
+            } else {
+                $("#displayIncorrect").show();
+                $("#displayCorrect").hide();
+                $('#reply').val('');
+                $("#answer").show();
+            }
+        }
+    });
+    $("#nextQuestion").click(function() {
         makeQuestion();
     });
     $("#catagories").change(function () {
         makeQuestion();
     });
     function makeQuestion() {
-
-        if ($(catagories).val() == "quadratics") {
+        $("#nextQuestion").hide();
+        $("#displayIncorrect").hide();
+        $("#displayCorrect").hide();
+        $("#answer").hide();
+        if ($("#catagories").val() == "quadratics") {
             var a = Math.floor(Math.random() * 5 + 1);
             var b = Math.floor(Math.random() * 5 + 1);
             var c = Math.floor(Math.random() * 5 + 1);
@@ -63,12 +103,12 @@
             var e = a * c;
             var f = a * d + b * c;
             var g = b * d;
-            var script = String("(ax+" + b + ")(" + c + "x+b) = " + e + "\(x^2\)+cx+" + g);
+            var script = String("(ax+" + b + ")(" + c + "x+b) = " + e + "\(x^2\)+cx+" + g + ". what is a*b*c?");
             $("#question").text(script);
-            $("#answer").text("a=" + a + ",b=" + d + ",c=" + f);
+            $("#answer").text(a * d * f);
         }
 
-        if ($(catagories).val() == "percent1") {
+        if ($("#catagories").val() == "percent1") {
             var cost = Math.floor(Math.random() * 71 + 30);
             var random = Math.floor(Math.random() * 2);
             var string;
@@ -87,13 +127,13 @@
             } else {
                 answer = cost * Math.pow(1 - percent / 100, years);
             }
-            $("#answer").text("answer:$" + answer.toFixed(2));
+            $("#answer").text(answer.toFixed(2));
         }
-        if ($(catagories).val() == "percent2") {
+        if ($("#catagories").val() == "percent2") {
             var sale = Math.floor(Math.random() * 26 + 15);
             var bookName = "";
             var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            for (var i = 0; i < 5; i++){
+            for (var i = 0; i < 5; i++) {
                 bookName += possible.charAt(Math.floor(Math.random() * possible.length));
             }
             var cost = Math.floor(Math.random() * 21 + 5);
@@ -101,10 +141,10 @@
             var script = String("a book was on sale for " + sale + "% off last month (the books name was " + bookName + "). After " + salesTax + "% sales tax the customer paid $" + cost + ". What was the original price of the book? round your answer to the nearest cent.");
             $("#question").text(script);
             var answer = (cost / (1 + salesTax / 100)) / (1 - sale / 100);
-            $("#answer").text("answer:$" + answer.toFixed(2));
+            $("#answer").text(answer.toFixed(2));
         }
-        if ($(catagories).val() == "percent3") {
-            var cost = Math.floor(Math.random() * 71 + 30);
+        if ($("#catagories").val() == "percent3") {
+            var original = Math.floor(Math.random() * 70001 + 30000);
             var random = Math.floor(Math.random() * 2);
             var string;
             if (random == 1) {
@@ -114,17 +154,40 @@
             }
             var percent = Math.floor(Math.random() * 11 + 5);
             var years = Math.floor(Math.random() * 11 + 5)
-            var script = String("Soham bought a basketball for " + cost + " dollars that " + string + " in price by " + percent + " percent a year. what is the price after " + years + " years?");
+            var script = String("in 2010 company a and company b had the same amount of sales. in the next " + years + " years company a's sales " + string + " by " + percent + "% a year while company b remained the same. if company a's sales are now " + original + ", what are the sales of company b? round to the nearest sale.");
             $("#question").text(script);
             var answer;
-            if (random == 1) {
-                answer = cost * Math.pow(1 + percent / 100, years);
-            } else {
-                answer = cost * Math.pow(1 - percent / 100, years);
-            }
-            $("#answer").text("answer:$" + answer.toFixed(2));
-        }
 
+            if (random == 1) {
+
+                answer = original / Math.pow(1 + percent / 100, years);
+            } else {
+
+                answer = original / Math.pow(1 - percent / 100, years);
+            }
+            $("#answer").text(answer.toFixed(0));
+        }
+        if ($("#catagories").val() == "percentBasic") {
+            var original = Math.floor(Math.random() * 70001 + 30000);
+            var random = Math.floor(Math.random() * 2);
+            var string;
+            if (random == 1) {
+                string = "apreciates";
+            } else {
+                string = "depreciates";
+            }
+            var percent = Math.floor(Math.random() * 11 + 5);
+            var script = String("if the equation of a company that starts off with an initial value of " + original + " and " + string + " at a rate of " + percent + " a year can be written in the form of ab^t. what is the value of b for this company?");
+            $("#question").text(script);
+            var answer;
+
+            if (random == 1) {
+                answer = 1 + percent/100;
+            } else {
+                answer = 1 - percent / 100;
+            }
+            $("#answer").text(answer);
+        }
     }
 </Script>
 
