@@ -4,7 +4,7 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <title>Stay Indoors</title>
+    <title>Practice Mathematics for SAT</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -16,15 +16,15 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
     <script src="https://tikzjax.com/v1/tikzjax.js"></script>
+    <link rel="stylesheet" href="https://latex.now.sh/prism/prism.css">
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
 </head>
 
 <body onload="makeQuestion()" windows>
 
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="homepage.php">questions</a>
-            <a class="navbar-brand" href="answers.php">answers</a>
-            <a class="navbar-brand" href="question.html">practice</a>
+            <a class="navbar-brand" href="question.html">Practice</a>
         </nav>
         <div class="container">
             <div class="alert alert-success" role="alert" id="displayCorrect">
@@ -33,30 +33,28 @@
             <div class="alert alert-danger" role="alert" id="displayIncorrect">
                 incorrect sadly (insert sad face emoji here)
             </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-text" id="catagory">
-
-                        <label for="cars">Choose a catagory:</label>
-                        <select name="catagory" id="catagories">
-                            <option value="quadratics">quadratics</option>
-                            <option value="percent1">percent1</option>
-                            <option value="percent2">percent2</option>
-                            <option value="percent3">percent3</option>
-                            <option value="percentBasic">percent basics</option>
-                        </select>
-
-                    </div>
-                    <p class="card-text" id="question"></p>
-                    <div class="input-group" id="replyText">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-anchor"></i></span>
-                        </div>
-                        <input type="text" id="reply" class="form-control pull-right reply" placeholder="Your Answer" />
-                    </div>
-
-                    <p class="card-text" id="answer" style="display: none;"></p>         
+            <div class="card text-center">
+                
+                <div class="card-header" id="catagory">
+                    <label for="cars">Choose a catagory:</label>
+                    <select name="catagory" id="catagories">
+                        <option value="quadratics">Quadratics</option>
+                        <option value="percent1">Percent practice 1</option>
+                        <option value="percent2">Percent practice 2</option>
+                        <option value="percent3">Percent practice 3</option>
+                        <option value="percentBasic">Percent practice basics</option>
+                    </select>
                 </div>
+                <p class="card-body definition" id="question"></p>
+                <div class="input-group" id="replyText">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-anchor"></i></span>
+                    </div>
+                    <input type="text" id="reply" class="form-control pull-right reply" placeholder="Your Answer" />
+                </div>
+
+                <p class="card-text" id="answer" style="display: none;"></p>         
+                
             </div>
             <button type="button" class="btn btn-success" id = "nextQuestion" style="display: none;" >Next Question</button>
         </div>
@@ -103,9 +101,10 @@
             var e = a * c;
             var f = a * d + b * c;
             var g = b * d;
-            var script = String("(ax+" + b + ")(" + c + "x+b) = " + e + "\(x^2\)+cx+" + g + ". what is a*b*c?");
+            var script = String("If $$(ax+" + b + ")(" + c + "x+b) = " + e + "\(x^2\)+ cx +" + g + "$$ what is $$a.b.c$$");
             $("#question").text(script);
             $("#answer").text(a * d * f);
+            MathJax.typeset();
         }
 
         if ($("#catagories").val() == "percent1") {
@@ -119,8 +118,9 @@
             }
             var percent = Math.floor(Math.random() * 11 + 5);
             var years = Math.floor(Math.random() * 11 + 5)
-            var script = String("Soham bought a basketball for " + cost + " dollars that " + string + " in price by " + percent + " percent a year. what is the price after " + years + " years?");
+            var script = String("Soham bought a basketball for $" + cost + " that " + string + " in price by " + percent + "% a year. what is the price after " + years + " years?");
             $("#question").text(script);
+            MathJax.typeset();
             var answer;
             if (random == 1) {
                 answer = cost * Math.pow(1 + percent / 100, years);
